@@ -18,3 +18,4 @@ $task10 | Export-Csv -Path $folderPath\hidden-result.csv
 $folderPath = "$PSScriptRoot\outfolder"
 $csvFiles = Get-ChildItem -Path $folderPath | Where-Object { $_.Name -ilike "*.csv" }
 $csvFiles | Rename-Item -NewName $_.Replace(".csv", ".log")
+$task11 = Get-ChildItem | Where-Object { $_.Name -ilike "*.log" }
