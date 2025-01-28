@@ -19,5 +19,5 @@ $task10 = ls $folderPath
 $folderPath = "$PSScriptRoot\outfolder"
 $csvFiles = Get-ChildItem -Path $folderPath | Where-Object { $_.Name -ilike "*.csv" }
 $csvFiles | Rename-Item -NewName { $_.Name -replace ".csv", ".log" } -Force
-$task11 = Get-ChildItem -Path $folderPath | Where-Object { $_.Name -ilike "*.log" }
+$task11 = Get-ChildItem -Recurse
 $task11
