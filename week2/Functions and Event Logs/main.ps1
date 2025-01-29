@@ -2,7 +2,10 @@
 
 clear
 
-getLoginoutsSinceDays(14)
+# Get logins and logoffs from the last 15 days
+$loginoutsTable = getLoginoutsSinceDays(15)
+$loginoutsTable
 
-#Get-EventLog System -source Kernel-General
-getStartupdownsSince(25)
+# Get start ups and shut downs from the last 25 days
+$startupdowns = getStartupdownsSince(25)
+$startupdowns
