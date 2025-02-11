@@ -1,4 +1,6 @@
 ﻿. (Join-Path $PSScriptRoot Apache-Logs.ps1)
 
-$log =  findIPsMatchingApacheLog("i", '404', "i")
-$log
+clear
+
+$logs = ApacheLogs
+$logs | Format-Table -AutoSize -Wrap

@@ -1,6 +1,0 @@
-Cannot convert the "System.Object[]" value of type "System.Object[]" to type "System.Int32".
-At C:\Users\champuser\Desktop\SYS320-01\week4\ParsingApacheLogs\Apache-Logs.ps1:11 char:9
-+         $tableRecords += [pscustomobject]@{ "IP" = $words[0]; `
-+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    + CategoryInfo          : InvalidArgument: (:) [], RuntimeException
-    + FullyQualifiedErrorId : ConvertToFinalInvalidCastException
