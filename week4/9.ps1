@@ -1,3 +1,4 @@
 ﻿. (Join-Path $PSScriptRoot Apache-Logs.ps1)
 
-getApacheLog("i", 404, "i")
+$log =  findIPsMatchingApacheLog("i", '404', "i")
+$log
