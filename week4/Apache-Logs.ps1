@@ -3,7 +3,7 @@
 
      # Get relevant logs
      $apacheLog = "C:\xampp\apache\logs\access.log"
-     $relevantLogs = Get-Content $apacheLog | Select-String '$pageVisited', ' $httpCode ', '$webBrowser'
+     $relevantLogs = Get-Content $apacheLog | Select-String "$pageVisited", " $httpCode ", "$webBrowser"
 
      # https://stackoverflow.com/questions/31178400/regex-to-extract-an-ip-address-from-a-string
      $regex = [regex] "\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b"
@@ -17,19 +17,6 @@
      $uniqueIPs = $matchingIPs
      return $uniqueIPs
 }
-
-$log =  findIPsMatchingApacheLog(' ', '404', ' ')
-$log
-
-    
-
-     # Get relevant logs
-     $apacheLog = "C:\xampp\apache\logs\access.log"
-     $relevantLogs = Get-Content $apacheLog | Select-String ' ', ' 404 ', ' '
-     $relevantLogs
-          $regex = [regex] "\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b"
-     $relevantIPs = $regex.Matches($relevantLogs)
-     $relevantIPs
 
 $log =  findIPsMatchingApacheLog(' ', '404', ' ')
 $log
