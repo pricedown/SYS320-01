@@ -1,0 +1,5 @@
+Web scraping
+
+1. Invoke webrequest & wait for them to respond to you
+2. Web uses OOP
+3. $scraped_links.Links.outerText 
