@@ -163,7 +163,7 @@ while($operation) {
         }
    }
 
-    # TODO: Create another choice "List at Risk Users" that
+    # DONE: Create another choice "List at Risk Users" that
     #              - Lists all the users with more than 10 failed logins in the last <User Given> days.  
     #                (You might need to create some failed logins to test)
     #              - Do not forget to update prompt and option numbers
@@ -178,7 +178,7 @@ while($operation) {
     }
 
 
-    # TODO: If user enters anything other than listed choices, e.g. a number that is not in the menu   
+    # DONE: If user enters anything other than listed choices, e.g. a number that is not in the menu   
     #       or a character that should not be accepted. Give a proper message to the user and prompt again.
     else {
         Write-Host "Invalid input, please try again"
