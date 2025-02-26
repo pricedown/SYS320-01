@@ -52,26 +52,28 @@ while($operation) {
         #              - If true is returned, do not continue and inform the user
         if (checkUser($name)) {
             Write-Host "User $name already exists" | Out-String
-            continue;
+            continue
         }
 
-        # TODO: Create a function called checkPassword in String-Helper that:
+        # DONE: Create a function called checkPassword in String-Helper that:
         #              - Checks if the given string is at least 6 characters
         #              - Checks if the given string contains at least 1 special character, 1 number, and 1 letter
         #              - If the given string does not satisfy conditions, returns false
         #              - If the given string satisfy the conditions, returns true
-        if (checkPassword($password) -eq $false) {
+        # DONE: Check the given password with your new function. 
+        #              - If false is returned, do not continue and inform the user
+        #              - If true is returned, continue with the rest of the function
+
+        if (checkPassword($password)) {
+
+        } else {
             Write-Host "Password must contain:
             - At least 6 characters
             - 1 special character
             - 1 numeric character
             - 1 letter" | Out-String
-            continue;
+            continue
         }
-
-        # TODO: Check the given password with your new function. 
-        #              - If false is returned, do not continue and inform the user
-        #              - If true is returned, continue with the rest of the function
 
         createAUser $name $password
 
@@ -85,10 +87,13 @@ while($operation) {
         $name = Read-Host -Prompt "Please enter the username for the user to be removed"
 
         # TODO: Check the given username with the checkUser function.
+        if (checkUser($name)) {
+            removeAUser $name
+            Write-Host "User: $name Removed." | Out-String
+        } else {
+            Write-Host "User $name does not exist" | Out-String
+        }
 
-        removeAUser $name
-
-        Write-Host "User: $name Removed." | Out-String
     }
 
 
@@ -99,10 +104,13 @@ while($operation) {
         $name = Read-Host -Prompt "Please enter the username for the user to be enabled"
 
         # TODO: Check the given username with the checkUser function.
+        if (checkUser($name)) {
+            enableAUser $name
+            Write-Host "User: $name Enabled." | Out-String
+        } else {
+            Write-Host "User $name does not exist" | Out-String
+        }
 
-        enableAUser $name
-
-        Write-Host "User: $name Enabled." | Out-String
     }
 
 
@@ -112,46 +120,73 @@ while($operation) {
         $name = Read-Host -Prompt "Please enter the username for the user to be disabled"
 
         # TODO: Check the given username with the checkUser function.
+        if (checkUser($name)) {
+            disableAUser $name
+            Write-Host "User: $name Disabled." | Out-String
+        } else {
+            Write-Host "User $name does not exist" | Out-String
+        }
 
-        disableAUser $name
-
-        Write-Host "User: $name Disabled." | Out-String
     }
 
 
     elseif($choice -eq 7) {
 
         $name = Read-Host -Prompt "Please enter the username for the user logs"
+        $days = Read-Host -Prompt "Please enter the number of days to retreive"
 
-        # TODO: Check the given username with the checkUser function.
+        # DONE: Check the given username with the checkUser function.
+        if (checkUser($name)) {
+            $userLogins = getLogInAndOffs $days
+            # DONE: Change the above line in a way that, the days 90 should be taken from the user
+            Write-Host ($userLogins | Where-Object { $_.User -ilike "*$name"} | Format-Table | Out-String)
+        } else {
+            Write-Host "User $name does not exist" | Out-String
+        }
 
-        $userLogins = getLogInAndOffs 90
-        # TODO: Change the above line in a way that, the days 90 should be taken from the user
-
-        Write-Host ($userLogins | Where-Object { $_.User -ilike "*$name"} | Format-Table | Out-String)
     }
 
 
     elseif($choice -eq 8) {
 
         $name = Read-Host -Prompt "Please enter the username for the user's failed login logs"
+        $days = Read-Host -Prompt "Please enter the number of days to retreive"
 
         # TODO: Check the given username with the checkUser function.
-
-        $userLogins = getFailedLogins 90
-        # TODO: Change the above line in a way that, the days 90 should be taken from the user
-
-        Write-Host ($userLogins | Where-Object { $_.User -ilike "*$name"} | Format-Table | Out-String)
-    }
-
+        if (checkUser($name)) {
+            $userLogins = getFailedLogins $days
+            # TODO: Change the above line in a way that, the days 90 should be taken from the user
+            Write-Host ($userLogins | Where-Object { $_.User -ilike "*$name"} | Format-Table | Out-String)
+        } else {
+            Write-Host "User $name does not exist" | Out-String
+        }
+   }
 
     # TODO: Create another choice "List at Risk Users" that
     #              - Lists all the users with more than 10 failed logins in the last <User Given> days.  
     #                (You might need to create some failed logins to test)
     #              - Do not forget to update prompt and option numbers
     
+    elseif($choice -eq 10) {
+        $days = Read-Host -Prompt "Please enter the number of days to retreive"
+
+        $failedLogins = getFailedLogins $days
+        $failedLogins
+        $riskUsers = getFailedLogins $days | Group-Object -Property User
+        
+
+        # TODO: Check the given username with the checkUser function.
+            Write-Host ($userLogins | Where-Object { $_.User -ilike "*$name"} | Format-Table | Out-String)
+        } else {
+            Write-Host "User $name does not exist" | Out-String
+        }
+    }
     # TODO: If user enters anything other than listed choices, e.g. a number that is not in the menu   
     #       or a character that should not be accepted. Give a proper message to the user and prompt again.
+
+    elseif($choice -eq 11) {
+
+    }
 }
 
 

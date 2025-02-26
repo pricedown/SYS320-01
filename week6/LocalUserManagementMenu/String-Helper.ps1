@@ -29,20 +29,20 @@ return $allines
 }
 
 # DONE: qualifies correct password strengths, returns true if OK
-function checkPassword($password) {
-   if ($password.Length -lt 6) {
+function checkPassword($user_password) {
+   if ($user_password.Length -lt 6) {
       return $false
    }
 
-   if ($password -notmatch "[^a-zA-Z0-9]") {
+   if ($user_password -notmatch "[^a-zA-Z0-9]") {
       return $false
    }
  
-   if ($password -notmatch "[0-9]") {
+   if ($user_password -notmatch "[0-9]") {
       return $false
    }  
 
-   if ($password -notmatch "[a-zA-Z]") {
+   if ($user_password -notmatch "[a-zA-Z]") {
       return $false
    }  
 
