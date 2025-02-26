@@ -1,7 +1,6 @@
 ﻿. (Join-Path $PSScriptRoot Users.ps1)
 . (Join-Path $PSScriptRoot Event-Logs.ps1)
 
-clear
 
 $Prompt = "`n"
 $Prompt += "Please choose your operation:`n"
@@ -17,7 +16,7 @@ $Prompt += "9 - Exit`n"
 
 
 
-$operation = $true
+$operation = $false
 
 while($operation){
 

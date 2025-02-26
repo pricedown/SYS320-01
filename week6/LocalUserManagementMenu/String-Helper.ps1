@@ -35,5 +35,17 @@ return $allines
 #              - If the given string satisfy the conditions, returns true
 
 checkPassword($password) {
-    
+    if ($password.Length -lt 6) {
+		Write-Host "Password must be at least 6 characters" | Out-String
+		return $false
+	}
+
+    if ($password -contains "") {
+		Write-Host "Password must be at least 6 characters" | Out-String
+		return $false
+	}
+
+	return $true
 }
+
+checkPassword("hdfjakfdhask")
