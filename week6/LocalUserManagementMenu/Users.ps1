@@ -7,7 +7,10 @@ function getEnabledUsers(){
 
   $enabledUsers = Get-LocalUser | Where-Object { $_.Enabled -ilike "True" } | Select-Object Name, SID
   return $enabledUsers
+
 }
+
+
 
 <# ******************************
 # Create a function that returns a list of NAMEs AND SIDs only for not enabled users
@@ -18,6 +21,9 @@ function getNotEnabledUsers(){
   return $notEnabledUsers
 
 }
+
+
+
 
 <# ******************************
 # Create a function that adds a user
@@ -66,18 +72,4 @@ function enableAUser($name){
    $userToBeEnabled = Get-LocalUser | Where-Object { $_.name -ilike $name }
    Enable-LocalUser $userToBeEnabled
    
-}
-
-
-# TODO: Create a function called checkUser in Users that: 
-#              - Checks if user a exists. 
-#              - If user exists, returns true, else returns false
-function checkUser($name) {
-    $user = Get-LocalUser | Where-Object { $_.name -ilike $name }
-    if ($user) {
-        return $true
-    }
-    else {
-        return $false
-    }
 }
