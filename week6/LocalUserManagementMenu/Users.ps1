@@ -73,3 +73,21 @@ function enableAUser($name){
    Enable-LocalUser $userToBeEnabled
    
 }
+
+
+# users:
+# - champuser
+# - Administrator
+# - DefaultAccount 
+# - Guest
+# - WDAGUtilityAccount
+
+# DONE:
+function checkUser($name) {
+   $user = Get-LocalUser | Where-Object { $_.Name -eq $name }
+   if ($user) {
+      return $true
+   } else {
+      return $false
+   }
+}

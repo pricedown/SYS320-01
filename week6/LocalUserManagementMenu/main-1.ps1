@@ -15,52 +15,60 @@ $Prompt += "7 - Get Log-In Logs`n"
 $Prompt += "8 - Get Failed Log-In Logs`n"
 $Prompt += "9 - Exit`n"
 
-
-
 $operation = $true
 
-while($operation){
-
-    
+while($operation) {
     Write-Host $Prompt | Out-String
     $choice = Read-Host 
 
-
-    if($choice -eq 9){
+    if($choice -eq 9) {
         Write-Host "Goodbye" | Out-String
         exit
         $operation = $false 
     }
 
-    elseif($choice -eq 1){
+    elseif($choice -eq 1) {
         $enabledUsers = getEnabledUsers
         Write-Host ($enabledUsers | Format-Table | Out-String)
     }
 
-    elseif($choice -eq 2){
+    elseif($choice -eq 2) {
         $notEnabledUsers = getNotEnabledUsers
         Write-Host ($notEnabledUsers | Format-Table | Out-String)
     }
 
 
     # Create a user
-    elseif($choice -eq 3){ 
+    elseif($choice -eq 3) { 
 
         $name = Read-Host -Prompt "Please enter the username for the new user"
         $password = Read-Host -AsSecureString -Prompt "Please enter the password for the new user"
 
-        # TODO: Create a function called checkUser in Users that: 
+        # DONE: Create a function called checkUser in Users that: 
         #              - Checks if user a exists. 
         #              - If user exists, returns true, else returns false
-        # TODO: Check the given username with your new function.
+        # DONE: Check the given username with your new function.
         #              - If false is returned, continue with the rest of the function
         #              - If true is returned, do not continue and inform the user
-        #
+        if (checkUser($name)) {
+            Write-Host "User $name already exists" | Out-String
+            continue;
+        }
+
         # TODO: Create a function called checkPassword in String-Helper that:
         #              - Checks if the given string is at least 6 characters
         #              - Checks if the given string contains at least 1 special character, 1 number, and 1 letter
         #              - If the given string does not satisfy conditions, returns false
         #              - If the given string satisfy the conditions, returns true
+        if (checkPassword($password) -eq $false) {
+            Write-Host "Password must contain:
+            - At least 6 characters
+            - 1 special character
+            - 1 numeric character
+            - 1 letter" | Out-String
+            continue;
+        }
+
         # TODO: Check the given password with your new function. 
         #              - If false is returned, do not continue and inform the user
         #              - If true is returned, continue with the rest of the function
@@ -72,7 +80,7 @@ while($operation){
 
 
     # Remove a user
-    elseif($choice -eq 4){
+    elseif($choice -eq 4) {
 
         $name = Read-Host -Prompt "Please enter the username for the user to be removed"
 
@@ -85,7 +93,7 @@ while($operation){
 
 
     # Enable a user
-    elseif($choice -eq 5){
+    elseif($choice -eq 5) {
 
 
         $name = Read-Host -Prompt "Please enter the username for the user to be enabled"
@@ -99,7 +107,7 @@ while($operation){
 
 
     # Disable a user
-    elseif($choice -eq 6){
+    elseif($choice -eq 6) {
 
         $name = Read-Host -Prompt "Please enter the username for the user to be disabled"
 
@@ -111,7 +119,7 @@ while($operation){
     }
 
 
-    elseif($choice -eq 7){
+    elseif($choice -eq 7) {
 
         $name = Read-Host -Prompt "Please enter the username for the user logs"
 
@@ -124,7 +132,7 @@ while($operation){
     }
 
 
-    elseif($choice -eq 8){
+    elseif($choice -eq 8) {
 
         $name = Read-Host -Prompt "Please enter the username for the user's failed login logs"
 
@@ -144,8 +152,6 @@ while($operation){
     
     # TODO: If user enters anything other than listed choices, e.g. a number that is not in the menu   
     #       or a character that should not be accepted. Give a proper message to the user and prompt again.
-    
-
 }
 
 

@@ -27,3 +27,24 @@ for($j=0; $j -lt $splitted.Count; $j++){
 
 return $allines
 }
+
+# DONE: qualifies correct password strengths, returns true if OK
+function checkPassword($password) {
+   if ($password.Length -lt 6) {
+      return $false
+   }
+
+   if ($password -notmatch "[^a-zA-Z0-9]") {
+      return $false
+   }
+ 
+   if ($password -notmatch "[0-9]") {
+      return $false
+   }  
+
+   if ($password -notmatch "[a-zA-Z]") {
+      return $false
+   }  
+
+   return $true
+}
