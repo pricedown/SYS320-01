@@ -27,25 +27,3 @@ for($j=0; $j -lt $splitted.Count; $j++){
 
 return $allines
 }
-
-# TODO: Create a function called checkPassword in String-Helper that:
-#              - Checks if the given string is at least 6 characters
-#              - Checks if the given string contains at least 1 special character, 1 number, and 1 letter
-#              - If the given string does not satisfy conditions, returns false
-#              - If the given string satisfy the conditions, returns true
-
-checkPassword($password) {
-    if ($password.Length -lt 6) {
-		Write-Host "Password must be at least 6 characters" | Out-String
-		return $false
-	}
-
-    if ($password -contains "") {
-		Write-Host "Password must be at least 6 characters" | Out-String
-		return $false
-	}
-
-	return $true
-}
-
-checkPassword("hdfjakfdhask")
