@@ -16,5 +16,3 @@ function getIOC() {
     }
     return $fullTable
 }
-
-getIOC

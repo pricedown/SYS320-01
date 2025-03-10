@@ -7,14 +7,17 @@ function getIndicatedLogs() {
     $logs = getApacheLogs
     $IOC = getIOC
 
-    $indicatedLogs = @()
-    for ($i = 0; $i -lt $IOC.Length; $i++) {
+    # $indicatedLogs = @()
+    for ($i = 1; $i -lt $logs.Length; $i++) {
         $pattern = $IOC[$i].Pattern
-        $indicatedLogs += $logs | Where-Object { $_.Page -ilike "*$pattern*" }
-    }
-    $indicatedLogs = Get-Unique -InputObject $indicatedLogs
+        $matchingLogs = $logs | Where-Object { $_."Page" -ilike "*$pattern*" }
+        $indicatedLogs += $matchingLogs
 
+        # $pattern
+        # $matchingLogs
+    }
     return $indicatedLogs
 }
+
 
 getIndicatedLogs | Format-Table -AutoSize -Wrap

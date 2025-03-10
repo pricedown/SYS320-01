@@ -19,5 +19,3 @@ function getApacheLogs() {
 
     return $fullTable;
 }
-
-getApacheLogs | Format-Table -AutoSize -Wrap
