@@ -1,3 +1,5 @@
+clear
+
 function getApacheLogs() {
     $logs = Get-Content (Join-Path $PSScriptRoot "access.log")
 
