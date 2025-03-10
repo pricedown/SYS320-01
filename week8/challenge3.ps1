@@ -8,13 +8,10 @@ function getIndicatedLogs() {
     $IOC = getIOC
 
     # $indicatedLogs = @()
-    for ($i = 1; $i -lt $logs.Length; $i++) {
+    for ($i = 0; $i -lt $logs.Length; $i++) {
         $pattern = $IOC[$i].Pattern
         $matchingLogs = $logs | Where-Object { $_."Page" -ilike "*$pattern*" }
         $indicatedLogs += $matchingLogs
-
-        # $pattern
-        # $matchingLogs
     }
     return $indicatedLogs
 }

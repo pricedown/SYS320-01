@@ -7,7 +7,7 @@ function getIOC() {
     $trElements = $page.ParsedHtml.body.getElementsByTagName("tr")
 
     $fullTable = @()
-    for ($i = 0; $i -lt $trElements.Length; $i++) {
+    for ($i = 1; $i -lt $trElements.Length; $i++) {
         $tdElements = $trElements[$i].getElementsByTagName("td")
 
         $fullTable += [pscustomobject]@{"Pattern" = $tdElements[0].innerText;`
