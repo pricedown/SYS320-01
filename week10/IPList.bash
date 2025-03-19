@@ -14,5 +14,5 @@ prefix=$1
 for i in {1..255} 
 do
 	ip="$prefix.$i"
-	ping -c 1 ip
+	ping -c 1 $ip | grep "64 bytes from $ip" | grep -o $ip
 done
