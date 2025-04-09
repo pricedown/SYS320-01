@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-for i in {0..19}
-do
-	curl 10.0.17.43
+ip="$(bash ../week10/IPAddress.bash)"
+
+for i in {0..19}; do
+    curl "$ip"
 done
