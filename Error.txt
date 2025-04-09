@@ -1,8 +1,0 @@
-Exception calling "Matches" with "1" argument(s): "Value cannot be null.
-Parameter name: input"
-At C:\Users\champuser\Desktop\SYS320-01\week4\Apache-Logs.ps1:10 char:6
-+      $relevantIPs = $regex.Matches($relevantLogs)
-+      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    + CategoryInfo          : NotSpecified: (:) [], MethodInvocationException
-    + FullyQualifiedErrorId : ArgumentNullException
- 
