@@ -16,10 +16,12 @@ function getLogins() {
 
 # Sending logins as email - Do not forget to change email address
 # to your own email address
-echo "To: joseph.isaacs@champlain.edu" >emailform.txt
-echo "Subject: Logins" >>emailform.txt
-getLogins >>emailform.txt
-cat emailform.txt | msmtp fpaligu@champlain.edu # using msmtp because Google won't auth with ssmtp
+function sendEmail() {
+    echo "To: joseph.isaacs@champlain.edu" >emailform.txt
+    echo "Subject: Logins" >>emailform.txt
+    getLogins >>emailform.txt
+    cat emailform.txt | msmtp fpaligu@champlain.edu # using msmtp because Google won't auth with ssmtp
+}
 
 # Todo - 2
 # Send failed logins as email to yourself.
