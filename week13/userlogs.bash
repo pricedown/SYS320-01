@@ -1,7 +1,7 @@
 #! /bin/bash
 
-#authfile="/var/log/auth.log"
-authfile="./auth.log"
+authfile="/var/log/auth.log.1"
+#authfile="./auth.log"
 
 function getLogins() {
     logline=$(cat "$authfile" | grep "systemd-logind" | grep "New session")
