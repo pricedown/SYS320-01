@@ -21,7 +21,7 @@ function getFailedLogins() {
     done
 }
 
-# Sending logins as email - Do not forget to change email address
+# Sending logins as email
 # to your own email address
 function sendEmail() {
     echo "To: joseph.isaacs@mymail.champlain.edu" >emailform.txt
