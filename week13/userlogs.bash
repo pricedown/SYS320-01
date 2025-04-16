@@ -1,10 +1,9 @@
 #! /bin/bash
 
-authfile="/var/log/auth.log.1"
-#authfile="./auth.log"
+authfile="/var/log/auth.log.2"
 
 function getLogins() {
-    logline=$(cat "$authfile" | grep "systemd-logind" | grep "New session")
+    logline=$(zcat "$authfile" | grep "systemd-logind" | grep "New session")
     dateAndUser=$(echo "$logline" | cut -d' ' -f1,2,11 | tr -d '\.')
     echo "$dateAndUser"
 }
@@ -14,6 +13,14 @@ function getLogins() {
 # a) Make a little research and experimentation to complete the function
 # b) Generate failed logins and test
 #}
+function getFailedLogins() {
+    logline=$(zcat "$authfile" | grep "authentication failure")
+    user=$(echo "$logline" | awk '{print $13}' | cut -d'=' -f2)
+    date=$(echo "$logline" | awk '{print $1, $2}')
+    dateAndUser=$(echo "$date" "$user")
+
+    echo "$dateAndUser"
+}
 
 # Sending logins as email - Do not forget to change email address
 # to your own email address
