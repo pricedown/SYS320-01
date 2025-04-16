@@ -1,7 +1,7 @@
 #! /bin/bash
 
 # This is the link we will scrape
-link="10.0.17.6/Courses.html"
+link="http://10.0.17.6/Courses.html"
 
 # get it with curl and tell curl not to give errors
 fullPage=$(curl -sL "$link")
