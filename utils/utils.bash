@@ -1,3 +1,6 @@
+export EDITOR="nvim"
+export VISUAL="nvim"
+
 week() {
     cd ~/SYS320-01/ || return
 
