@@ -14,12 +14,11 @@ function getLogins() {
 # b) Generate failed logins and test
 #}
 function getFailedLogins() {
-    logline=$(zcat "$authfile" | grep "authentication failure")
-    user=$(echo "$logline" | awk '{print $13}' | cut -d'=' -f2)
-    date=$(echo "$logline" | awk '{print $1, $2}')
-    dateAndUser=$(echo "$date" "$user")
-
-    echo "$dateAndUser"
+    zcat "$authfile" | grep "authentication failure" | while read -r line; do
+        date=$(echo "$line" | awk '{print $1, $2}')
+        user=$(echo "$line" | grep -oP 'user=\K[^ ]+')
+        echo "$date $user"
+    done
 }
 
 # Sending logins as email - Do not forget to change email address
