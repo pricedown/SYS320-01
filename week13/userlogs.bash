@@ -28,7 +28,7 @@ function sendEmail() {
     echo "To: joseph.isaacs@champlain.edu" >emailform.txt
     echo "Subject: Logins" >>emailform.txt
     getLogins >>emailform.txt
-    cat emailform.txt | msmtp fpaligu@champlain.edu # using msmtp because Google won't auth with ssmtp
+    cat emailform.txt | msmtp joseph.isaacs@mymail.champlain.edu # using msmtp because Google won't auth with ssmtp
 }
 
 # Todo - 2
@@ -38,10 +38,12 @@ function sendFailedLoginsEmail() {
     echo "To: joseph.isaacs@mymail.champlain.edu" >failed_email.txt
     echo "Subject: Failed Logins" >>failed_email.txt
     getFailedLogins >>failed_email.txt
-    cat failed_email.txt | msmtp YOUR_EMAIL_HERE
+    cat failed_email.txt | msmtp joseph.isaacs@mymail.champlain.edu
 }
 
 function sendEmails() {
     sendEmail
     sendFailedLoginsEmail
 }
+
+sendEmails
