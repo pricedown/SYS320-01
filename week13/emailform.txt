@@ -1,3 +1,9 @@
 To: joseph.isaacs@mymail.champlain.edu
 Subject: Logins
+<<<<<<< HEAD
 
+=======
+Apr  user
+Apr  user
+Apr 10 champuser
+>>>>>>> 487e1f3 (Files changed)
