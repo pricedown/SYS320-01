@@ -34,3 +34,14 @@ function sendEmail() {
 # Todo - 2
 # Send failed logins as email to yourself.
 # Similar to sending logins as email
+function sendFailedLoginsEmail() {
+    echo "To: joseph.isaacs@mymail.champlain.edu" >failed_email.txt
+    echo "Subject: Failed Logins" >>failed_email.txt
+    getFailedLogins >>failed_email.txt
+    cat failed_email.txt | msmtp YOUR_EMAIL_HERE
+}
+
+function sendEmails() {
+    sendEmail
+    sendFailedLoginsEmail
+}
