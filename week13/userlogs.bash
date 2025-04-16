@@ -16,7 +16,7 @@ function getLogins() {
 function getFailedLogins() {
     zcat "$authfile" | grep "authentication failure" | while read -r line; do
         date=$(echo "$line" | awk '{print $1, $2}')
-        user=$(echo "$line" | grep -oP 'user=\K[^ ]+')
+        user=$(echo "$line" | grep -oP 'ruser=\K[^ ]+')
         echo "$date $user"
     done
 }
