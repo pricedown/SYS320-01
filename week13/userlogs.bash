@@ -25,7 +25,7 @@ function getFailedLogins() {
 # Sending logins as email - Do not forget to change email address
 # to your own email address
 function sendEmail() {
-    echo "To: joseph.isaacs@champlain.edu" >emailform.txt
+    echo "To: joseph.isaacs@mymail.champlain.edu" >emailform.txt
     echo "Subject: Logins" >>emailform.txt
     getLogins >>emailform.txt
     cat emailform.txt | msmtp joseph.isaacs@mymail.champlain.edu # using msmtp because Google won't auth with ssmtp
