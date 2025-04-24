@@ -31,12 +31,12 @@ function InternalNmap() {
 function ExternalListeningPorts() {
     # Todo-2: Complete the ExternalListeningPorts that will print the port and application
     # that is listening on that port from network (using ss utility)
-    elpo=$(sudo ss -pltnH | grep -v 127.0.0.1 | awk '{print $5}' | rev | cut -d':' -f1 | rev)
+    exlp=$(ss -tulnH | grep -v 127.0.0.1)
 }
 
 # Only IPv4 ports listening from localhost
 function InternalListeningPorts() {
-    ilpo=$(sudo ss -ltpn | awk -F"[[:space:]:(),]+" '/127.0.0./ {print $5,$9}' | tr -d "\"")
+    ilpo=$(ss -ltpn | awk -F"[[:space:]:(),]+" '/127.0.0./ {print $5,$9}' | tr -d "\"")
 }
 
 # Todo-3: If the program is not taking exactly 2 arguments, print helpmenu
@@ -50,16 +50,11 @@ function InternalListeningPorts() {
 
 while getopts "ns" option; do
     case $option in
-    n)
-        InternalNmap
-        echo "$rin"
-        ;;
-    s)
-        ExternalNmap
-        echo "$rex"
-        ;;
+    n) ;;
+    s) ;;
     ?)
         helpmenu
         ;;
     esac
 done
+sudo ss -pltnH | grep -v 127.0.0.1 | awk '{print $5, $6}'
