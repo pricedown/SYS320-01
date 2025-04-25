@@ -14,4 +14,4 @@ foundLines=$(cat $iocFile | while read -r ioc; do
 done)
 
 foundLines=$(echo "$foundLines" | uniq)
-echo "$foundLines"
+echo "$foundLines" >report.txt
