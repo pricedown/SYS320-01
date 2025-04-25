@@ -4,39 +4,39 @@ myIP=$(bash myIP.bash)
 
 # Todo-1: Create a helpmenu function that prints help for the script
 function helpmenu() {
-  echo "                    HELP MENU                     "
-  echo "--------------------------------------------------"
-  echo "-n: Add -n as an argument for this script to use nmap"
-  echo " -n external: External NMAP scan"
-  echo " -n internal: Internal NMAP scan"
-  echo "-s: Add -s as an argument for this script to use ss"
-  echo " -s external: External ss(Netstat) scan"
-  echo " -s internal: Internal ss(Netstat) scan"
-  echo ""
-  echo "Usage: bash networkchecker.bash -n/--s external/internal"
-  echo "--------------------------------------------------"
+    echo "                    HELP MENU                     "
+    echo "--------------------------------------------------"
+    echo "-n: Add -n as an argument for this script to use nmap"
+    echo " -n external: External NMAP scan"
+    echo " -n internal: Internal NMAP scan"
+    echo "-s: Add -s as an argument for this script to use ss"
+    echo " -s external: External ss(Netstat) scan"
+    echo " -s internal: Internal ss(Netstat) scan"
+    echo ""
+    echo "Usage: bash networkchecker.bash -n/--s external/internal"
+    echo "--------------------------------------------------"
 }
 
 # Return ports that are serving to the network
 function ExternalNmap() {
-  rex=$(nmap "${myIP}" | awk -F"[/[:space:]]+" '/open/ {print $1,$4}')
+    rex=$(nmap "${myIP}" | awk -F"[/[:space:]]+" '/open/ {print $1,$4}')
 }
 
 # Return ports that are serving to localhost
 function InternalNmap() {
-  rin=$(nmap localhost | awk -F"[/[:space:]]+" '/open/ {print $1,$4}')
+    rin=$(nmap localhost | awk -F"[/[:space:]]+" '/open/ {print $1,$4}')
 }
 
 # Only IPv4 ports listening from network
 function ExternalListeningPorts() {
-  # Todo-2: Complete the ExternalListeningPorts that will print the port and application
-  # that is listening on that port from network (using ss utility)
-  exlp=$(ss -tulnH | grep -v 127.0.0.1)
+    # Todo-2: Complete the ExternalListeningPorts that will print the port and application
+    # that is listening on that port from network (using ss utility)
+    elpo=$(ss -tulnH | grep -v 127.0.0.1)
 }
 
 # Only IPv4 ports listening from localhost
 function InternalListeningPorts() {
-  ilpo=$(ss -ltpn | awk -F"[[:space:]:(),]+" '/127.0.0./ {print $5,$9}' | tr -d "\"")
+    ilpo=$(ss -ltpn | awk -F"[[:space:]:(),]+" '/127.0.0./ {print $5,$9}' | tr -d "\"")
 }
 
 # Todo-3: If the program is not taking exactly 2 arguments, print helpmenu
@@ -49,35 +49,41 @@ function InternalListeningPorts() {
 #               -s external => will call ss on network (non-local)
 
 if [ "$#" -ne 2 ]; then
-  helpmenu
-  exit 1
+    helpmenu
+    echo "You only had $# arguments"
+    exit 1
 fi
 
+argument=$2
 while getopts "ns" option; do
-  case "$option" in
-  n)
-    if [[ "$OPTARG" == "internal" ]]; then
-      InternalNmap
-    elif [[ "$OPTARG" == "external" ]]; then
-      ExternalNmap
-    else
-      helpmenu
-      exit 1
-    fi
-    ;;
-  s)
-    if [[ "$OPTARG" == "internal" ]]; then
-      InternalListeningPorts
-    elif [[ "$OPTARG" == "external" ]]; then
-      ExternalListeningPorts
-    else
-      helpmenu
-      exit 1
-    fi
-    ;;
-  ?)
-    helpmenu
-    exit 1
-    ;;
-  esac
+    case "$option" in
+    n)
+        if [[ "$argument" == "internal" ]]; then
+            InternalNmap
+            echo "$rin"
+        elif [[ "$argument" == "external" ]]; then
+            ExternalNmap
+            echo "$rex"
+        else
+            helpmenu
+            exit 1
+        fi
+        ;;
+    s)
+        if [[ "$argument" == "internal" ]]; then
+            InternalListeningPorts
+            echo "$iplo"
+        elif [[ "$argument" == "external" ]]; then
+            ExternalListeningPorts
+            echo "$elpo"
+        else
+            helpmenu
+            exit 1
+        fi
+        ;;
+    ?)
+        helpmenu
+        exit 1
+        ;;
+    esac
 done
