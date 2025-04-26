@@ -1,14 +1,16 @@
 #!/usr/bin/env bash
 
 : >report.html
-echo "<html> <body>" >>report.html
-echo "Access logs with IOC indicators: " >>report.html
+
+echo "<html><body>" >>report.html
+echo "<h2>Access Logs with IOC Indicators:</h2>" >>report.html
 echo "<table>" >>report.html
+echo "<tr><th>IP Address</th><th>DateTime</th><th>Request</th></tr>" >>report.html
 
-cat report.txt | while read -r line; do
-  echo "<tr><td>" >>report.html
-  echo "$line" >>report.html
-  echo "</tr></td>" >>report.html
-
+cat report.txt | while read -r ip datetime request; do
+    echo "<tr><td>$ip</td><td>$datetime</td><td>$request</td></tr>" >>report.html
 done
-echo "</table> </body> </html>" >>report.html
+
+echo "</table></body></html>" >>report.html
+
+sudo mv report.html /var/www/html/
