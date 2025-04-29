@@ -1,50 +1,73 @@
 clear
 
-$configPath = "C:\Users\champuser\Desktop\SYS320-01\week7\ScheduledEmailsAtRiskUsers\configuration.txt"
+$configPath = Join-Path -Path $PSScriptRoot -ChildPath "configuration.txt"
 
 function readConfiguration($cfgPath) {
-    $content = Get-Content -Path $cfgPath
-    return $content
+    if (Test-Path $cfgPath) {
+        $content = Get-Content -Path $cfgPath
+        $config = [pscustomobject]@{
+            Days = $content[0]
+            ExecutionTime = $content[1]
+        }
+        return $config
+    } else {
+        Write-Host "Configuration file not found." | Out-String
+        return $null
+    }
 }
 
 function changeConfiguration($cfgPath, $daysNum, $time) {
-        "$daysNum`n$time" | Out-File -FilePath $cfgPath
+    "$daysNum`n$time" | Out-File -FilePath $cfgPath
+    Write-Host "Configuration Changed" | Out-String
 }
 
 function configurationMenu() {
-    $prompt = "Select action:
-0 -  Exit the program
-1 -  Show configuration
-2 -  Change configuration
-";
+    $prompt = @"
+Please choose your operation:
+1 - Show Configuration
+2 - Change Configuration
+3 - Exit
+"@
 
     $operation = $true
     while ($operation) {
         Write-Host $prompt | Out-String
-        $choice = Read-Host
+        $choice = Read-Host "Enter your choice"
 
-        if ($choice -eq 0) {
-            Write-Host "Goodbye" | Out-String
-            $operation = $false
-            exit
-        }
+        switch ($choice) {
+            '1' {
+                $config = readConfiguration $configPath
+                if ($config) {
+                    $table= $config | Format-Table | Out-String
+                    Write-Host "$table" | Out-String
+                }
+            }
+            '2' {
+                while ($true) {
+                    $daysNum = Read-Host "Enter the number of days for which the logs will be obtained"
+                    if ($daysNum -match '^\d+$') {
+                        break
+                    }
+                    Write-Host "Invalid input" | Out-String
+                }
 
-        elseif ($choice -eq 1) {
-            readConfiguration($configPath)
-            Write-Host $content | Out-String
-            continue
-        }
-
-        elseif ($choice -eq 2) {
-            $daysNum = Read-Host -Prompt "Please input the amount of days to send the warning"
-            $time = Read-Host -Prompt "Please input the time of day for the automated execution time"
-            changeConfiguration($configPath, $daysNum, $time)
-        
-            continue
-        }
-
-        else {
-            Write-Host "Input not recognized" | Out-String
+                while ($true) {
+                    $time = Read-Host "Enter the daily execution time of the script"
+                    if ($time -match '^\d{1,2}:\d{2}\s?(AM|PM)$') {
+                        break
+                    }
+                    Write-Host "Invalid input" | Out-String
+                }
+              
+                changeConfiguration $configPath $daysNum $time
+            }
+            '3' {
+                Write-Host "Goodbye"
+                $operation = $false
+            }
+            default {
+                Write-Host "Input not recognized" | Out-String
+            }
         }
     }
 }
